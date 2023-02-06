@@ -19,8 +19,9 @@ export default function TextForm(props) {
     setText(event.target.value);
   }
   const handleCopyText = (event) => {
-    let newtext = document.getElementById("myText")
-    navigator.clipboard.writeText(newtext.value)
+    let newtext = document.getElementById("myText");
+    navigator.clipboard.writeText(newtext.value);
+    props.showAlert("Text has been copied","success");
   }
   const handleExtraSpace = (event) => {
     let newText = text.split(/[ ]+/)
@@ -34,15 +35,15 @@ export default function TextForm(props) {
         <div className="mb-3" >
           <textarea type="textArea" className="form-control" style={{backgroundColor: props.mode==='dark'?'grey':'white',color:props.mode==='dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myText" rows="8"></textarea>
         </div>
-        <button className="btn btn-primary mx-1" onClick={handleUpClick}>convert to uppercase</button>
-        <button className="btn btn-primary mx-1" onClick={handleLowClick}>convert to lowercase</button>
-        <button className="btn btn-primary mx-1" onClick={handleClearClick}>clear the textarea</button>
-        <button className="btn btn-primary mx-1" onClick={handleCopyText}>copy the text</button>
-        <button className="btn btn-primary mx-1" onClick={handleExtraSpace}>remove extra spaces</button>
+        <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>convert to uppercase</button>
+        <button className="btn btn-primary mx-1 my-1" onClick={handleLowClick}>convert to lowercase</button>
+        <button className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>clear the textarea</button>
+        <button className="btn btn-primary mx-1 my-1" onClick={handleCopyText}>copy the text</button>
+        <button className="btn btn-primary mx-1 my-1" onClick={handleExtraSpace}>remove extra spaces</button>
       </div>
       <div className="container my-4" style={{color: props.mode==='dark'?'light':'dark'}}>
         <h2>Your Text Summery</h2>
-        <p>{text.length} characters and {text.split(" ").length} words</p>
+        <p>{text.length} characters and {text.length===0?'0':(text.charAt(text.length-1)===' ' ?text.split(" ").length-1:text.split(" ").length)} words</p>
         <p>{0.008 * text.split(" ").length} Minutes read</p>
         <h3>Preview</h3>
         <p>{`${text.length > 0 ? text : 'Write something in the above textarea to preview it here'}`}</p>
